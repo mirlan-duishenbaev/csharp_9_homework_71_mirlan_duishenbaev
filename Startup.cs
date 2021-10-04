@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyChat.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +27,17 @@ namespace MyChat
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            string connection = Configuration.GetConnectionString("DbConnection");
+            services.AddDbContext<ChatContext>(options => options.UseNpgsql(connection))
+               .AddIdentity<User, IdentityRole>(options =>
+               {
+                   options.Password.RequiredLength = 5;
+                   options.Password.RequireNonAlphanumeric = false;
+                   options.Password.RequireLowercase = false;
+                   options.Password.RequireUppercase = false;
+                   options.Password.RequireDigit = false;
+               })
+               .AddEntityFrameworkStores<ChatContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +59,8 @@ namespace MyChat
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
+
 
             app.UseEndpoints(endpoints =>
             {
