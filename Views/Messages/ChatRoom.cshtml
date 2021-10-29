@@ -1,0 +1,92 @@
+﻿@model MyChat.ViewModels.ChatRoomViewModel
+
+@{
+    ViewBag.Title = "Комната общения";
+    Layout = "_Layout";
+}
+
+
+<div class="container">
+    <div id="ext_msg">
+        @if (Model.Messages == null)
+        {
+            <span></span>
+        }
+        else
+        {
+            @foreach (var item in Model.Messages)
+            {
+                <div class="card mb-0" style="max-width: 70rem;">
+                    <div class="card-body row no-gutters">
+                        <div class="col-md-2">
+                            <h5 class="card-title">@item.Author.UserName</h5>
+                            <img src="@item.Author.Avatar" class="img-thumbnail" width="100" height="100" alt="...">
+                        </div>
+                        <div class="col-md-10">
+                            <div class="card-subtitle mb-2 text-muted">@item.MessageDate</div>
+                            <hr>
+                            <p id="msgText" class="card-text">@item.Text</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
+
+<hr>
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <form name="message" action="">
+        <input name="usermsg" type="text" id="usermsg" size="63" />
+        <input name="submitmsg" type="submit" id="submitmsg" value="Написать" />
+    </form>
+
+}
+
+
+
+@section scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+<script>
+
+
+    let htmlMsg = '<div class="card mb-0" style="max-width: 70rem;">'+
+                        '<div class="card-body row no-gutters">'+
+                            '<div class="col-md-2">'+
+                                '<h5 class="card-title" id="ext_msg_author"></h5>'+
+                                '<img id="ext_msg_author_avatar" src="" class="img-thumbnail" width="100" height="100" alt="...">'+
+                            '</div>'+
+                            '<div class="col-md-10">'+
+                                '<div id="ext_msg_date" class="card-subtitle mb-2 text-muted"></div>'+
+                                '<hr>'+
+                                '<p id="ext_msg_text" class="card-text"></p>'+
+                            '</div></div></div>'
+
+
+    $('#submitmsg').on('click', () => {
+        $.post('@Url.Action("Add", "Messages")',
+            {
+                msgText: $('#usermsg').val(),
+            },
+            function (response) {
+                
+                console.log(response)
+                $('#ext_msg').append(htmlMsg)
+                $('#ext_msg_author').text(response.message.author.userName)
+                $('#ext_msg_text').text(response.message.text)
+                $('#ext_msg_author_avatar').attr(src, "\100item.Author.Avatar")
+                $('#ext_msg_date').text(response.message.dateTime)
+
+            }
+        )
+    })
+</script>
+}
+
+

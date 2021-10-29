@@ -1,0 +1,27 @@
+﻿@model User
+<header>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <img src="@Model.Avatar"
+                     class="round mh-100"
+                     style="width: 200px; height: 200px; border-radius: 50%; border: 3px solid black;"
+                     alt="..."><br />
+            </div>
+            <div class="card-body" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.UserName</h5>
+                    <p class="card-text">@Model.Email</p>
+                    <p class="card-text">Дата рождения: @Model.BirthDate.ToString("dd MMM yyyy") (@{int Age = DateTime.Now.Year - @Model.BirthDate.Year;}@Age лет)</p>
+                </div>
+            </div>
+        </div>
+        <a class="btn btn-primary mt-2" role="button" asp-action="Edit" asp-controller="Account" asp-route-userId="@Model.Id">Редактировать</a>
+        <a class="btn btn-primary mt-2" role="button" asp-action="SendDataToMail" asp-controller="Account" asp-route-userEmail="@Model.Email">Отправить данные на почту</a>
+    </div>
+</header>
+
+

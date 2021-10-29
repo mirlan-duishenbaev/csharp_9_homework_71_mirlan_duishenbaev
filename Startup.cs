@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyChat.Models;
+using MyChat.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,12 @@ namespace MyChat
                    options.Password.RequireDigit = true;
                })
                .AddEntityFrameworkStores<ChatContext>();
+
+            services.AddTransient<UserService>();
+
+            services.AddMemoryCache();
+
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

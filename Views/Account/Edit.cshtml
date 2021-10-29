@@ -1,0 +1,104 @@
+﻿@model MyChat.ViewModels.EditViewModel
+
+@{
+    ViewBag.Title = "Редактирование пользователя";
+    Layout = "_Layout";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://kit.fontawesome.com/8d49b22949.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/pass_control.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous">
+    </script>
+</head>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" asp-controller="Account" method="post">
+            <div class="form_row">
+                <label for="">
+                    Логин
+                    <input asp-for="Login" type="text" value="@Model.Login">
+                    <span asp-validation-for="Login" />
+                </label>
+            </div>
+            <div class="form_row">
+                <label for="">
+                    Email
+                    <input asp-for="Email" type="text" value="@Model.Email">
+                </label>
+            </div>
+            <div class="form_row">
+                <label for="">
+                    Дата рождения
+                    <input asp-for="DateOfBirth" type="datetime" value="@Model.DateOfBirth">
+                </label>
+            </div>
+            <div class="form_row">
+                <label for="">
+                    Аватар
+                    <input asp-for="Avatar" type="text">
+                </label>
+            </div>
+
+            <button type="submit"> Изменить </button>
+        </form>
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
+
+@*<h2>Редактирование данных пользователя</h2>
+<form method="post" asp-controller="Account" asp-action="Edit" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Login"></label><br />
+        <input asp-for="Login" />
+        <span asp-validation-for="Login"></span>
+    </div>
+    <div>
+        <label asp-for="Email"></label><br />
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label asp-for="DateOfBirth"></label><br />
+        <input asp-for="DateOfBirth" type="date" />
+        <span asp-validation-for="DateOfBirth"></span>
+    </div>
+    <div>
+        <label asp-for="Avatar"></label><br />
+        <input asp-for="Avatar" type="file" name="uploadedFile" /><br>
+    </div>
+
+
+    <div>
+        <input type="submit" value="Готово" />
+    </div>
+
+</form>
+
+@section Scripts{
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"
+            asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.validator">
+    </script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"
+            asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
+    </script>
+
+}*@

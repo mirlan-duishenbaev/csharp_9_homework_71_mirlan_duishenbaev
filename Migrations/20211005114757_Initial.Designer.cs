@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyChat.Migrations
 {
     [DbContext(typeof(ChatContext))]
-    [Migration("20211004124356_Initial")]
+    [Migration("20211005114757_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

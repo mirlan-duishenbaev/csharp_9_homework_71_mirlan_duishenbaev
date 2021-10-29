@@ -15,11 +15,11 @@ namespace MyChat.utils
         {
             string adminEmail = "admin@admin.com";
             string adminLogin = "Admin";
-            string adminPassword = "password";
+            string adminPassword = "123PASSword";
 
-            string path = "/Files/" + "Admin.jfif";
+            string path = "/Files/admin.png";
 
-            FileModel file = new FileModel { Name = "Admin.jfif", Path = path };
+            FileModel file = new FileModel { Name = "admin.png", Path = path };
             string adminAvatar = file.Path;
 
             var roles = new[] { "admin", "user" };
@@ -30,7 +30,7 @@ namespace MyChat.utils
                     await _roleManager.CreateAsync(new IdentityRole(role));
             }
 
-            if (await _userManager.FindByNameAsync(adminEmail) == null)
+            if (await _userManager.FindByEmailAsync(adminEmail) == null)
             {
                 User admin = new User { Email = adminEmail, UserName = adminLogin, Avatar = adminAvatar };
                 IdentityResult result = await _userManager.CreateAsync(admin, adminPassword);

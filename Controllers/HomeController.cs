@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyChat.Models;
+using MyChat.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,15 +14,19 @@ namespace MyChat.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        UserService userService;
+
+        public HomeController(ILogger<HomeController> logger, UserService service)
         {
             _logger = logger;
+            userService = service;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("ChatRoom", "Messages");
         }
+
 
         public IActionResult Privacy()
         {
